@@ -7,8 +7,10 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
@@ -17,6 +19,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -33,7 +36,9 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import ec.edu.epn.prueba1.ui.theme.Prueba1Theme
 
 class MainActivity : ComponentActivity() {
@@ -47,12 +52,28 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MainContent() {
     Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-        Box(Modifier.padding(innerPadding)) {
-            Column {
-                Text("Eventos en \"San José\" por el feriado de noviembre")
-//                LazyVerticalGrid() {
-//
-//                }
+        Box(Modifier.background(Color.Gray).padding(innerPadding)) {
+            Column(
+                modifier = Modifier.fillMaxSize().padding(15.dp), horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(text = "Eventos en \"San José\" por el feriado de noviembre", fontWeight = FontWeight.Black, fontSize = 15.sp)
+                Spacer(Modifier.height(15.dp))
+                LazyVerticalGrid(
+                    columns = GridCells.Fixed(2),
+                    horizontalArrangement = Arrangement.spacedBy(15.dp),
+                    verticalArrangement = Arrangement.spacedBy(15.dp)
+                ) {
+                    items(5) {
+                        Tarjeta(
+                            modifier = Modifier,
+                            nombre = "Trail en el Mirador de la Perdiz",
+                            lugar = "Mirador de la Perdiz",
+                            fecha = "31/10/2024",
+                            asistentes = 30,
+                            icono = painterResource(R.drawable.ico_montana)
+                        )
+                    }
+                }
             }
         }
     }
@@ -89,16 +110,16 @@ fun Tarjeta(modifier: Modifier = Modifier, nombre: String = "", lugar: String = 
     }
 }
 
-@Preview(showBackground = true)
+@Preview(showSystemUi = true, showBackground = true)
 @Composable
 fun MainPreview() {
-//    MainContent()
-    Tarjeta(
-        modifier = Modifier,
-        nombre = "Trail en el Mirador de la Perdiz",
-        lugar = "Mirador de la Perdiz",
-        fecha = "31/10/2024",
-        asistentes = 30,
-        icono = painterResource(R.drawable.ico_montana)
-    )
+    MainContent()
+//    Tarjeta(
+//        modifier = Modifier,
+//        nombre = "Trail en el Mirador de la Perdiz",
+//        lugar = "Mirador de la Perdiz",
+//        fecha = "31/10/2024",
+//        asistentes = 30,
+//        icono = painterResource(R.drawable.ico_montana)
+//    )
 }
